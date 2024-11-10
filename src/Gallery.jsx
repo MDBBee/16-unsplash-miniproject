@@ -3,8 +3,9 @@ import Axios from 'axios';
 import { ToastContainer } from 'react-toastify';
 import { useGlobalContext } from './context';
 
-const url =
-  'https://api.unsplash.com/search/photos?client_id=9L8xBilZH72egnGVf_-iiXGRWBI1qVf8UFj139y7BuQ';
+const url = `https://api.unsplash.com/search/photos?client_id=${
+  import.meta.env.VITE_API_KEY
+}`;
 
 function Gallery() {
   const { searchValue } = useGlobalContext();

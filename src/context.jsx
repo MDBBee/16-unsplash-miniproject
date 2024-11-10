@@ -1,17 +1,29 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 const AppContext = createContext();
 
+const getInitialDarkMode = () => {
+  const fromLocalStorage = localStorage.getItem('darkTheme');
+
+  if (fromLocalStorage === null) {
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  return fromLocalStorage === 'true';
+};
+
 export const AppProvider = ({ children }) => {
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
+  const [isDarkTheme, setIsDarkTheme] = useState(getInitialDarkMode());
   const [searchValue, setSearchValue] = useState('warthog');
 
   const toggleDarkTheme = () => {
     const newDarkTheme = !isDarkTheme;
     setIsDarkTheme(newDarkTheme);
-    const body = document.querySelector('body');
-    body.classList.toggle('dark-theme', newDarkTheme);
+    localStorage.setItem('darkTheme', newDarkTheme);
   };
+
+  useEffect(() => {
+    document.body.classList.toggle('dark-theme', isDarkTheme);
+  }, [isDarkTheme]);
 
   return (
     <AppContext.Provider
