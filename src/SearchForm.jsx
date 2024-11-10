@@ -1,6 +1,9 @@
 import { toast } from 'react-toastify';
+import { useGlobalContext } from './context';
 
 function SearchForm() {
+  const { searchValue, setSearchValue } = useGlobalContext();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const search = e.target.elements.search.value;
@@ -8,6 +11,8 @@ function SearchForm() {
     if (!search) {
       toast.error('Please add a search word or phrase!!');
     }
+    setSearchValue(search);
+    e.target.elements.search.value = '';
   };
 
   return (
