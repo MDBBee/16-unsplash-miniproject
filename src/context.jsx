@@ -4,9 +4,12 @@ const AppContext = createContext();
 
 const getInitialDarkMode = () => {
   const fromLocalStorage = localStorage.getItem('darkTheme');
+  const userThemePreference = window.matchMedia(
+    '(prefers-color-scheme: dark)'
+  ).matches;
 
   if (fromLocalStorage === null) {
-    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return userThemePreference;
   }
   return fromLocalStorage === 'true';
 };

@@ -2,7 +2,7 @@ import { toast } from 'react-toastify';
 import { useGlobalContext } from './context';
 
 function SearchForm() {
-  const { searchValue, setSearchValue } = useGlobalContext();
+  const { setSearchValue } = useGlobalContext();
 
   const handleSubmit = (e) => {
     e.preventDefault();
